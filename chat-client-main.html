@@ -1,0 +1,35 @@
+<html>
+<head>
+	<title>Real Time client for tornado</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+
+<script>
+	var ws;
+
+	$(document).ready(function() {
+		 ws = new WebSocket("ws://10.0.0.2:8888/socket?username='{{username}}'");
+	
+		ws.onmessage = function(event){
+			$('#chat-area').append(event.data + '<br />');
+	}});
+
+	function send_message()
+	{
+		var message = document.getElementById('txt_message').value
+		ws.send(message)
+	}
+
+</script>
+</head>
+<body>
+<div id='chat-area' style='border-style:solid; border-size:2px; padding:5px; margin:10px;'>
+</div>
+
+<div>
+	{{username}} says : <input type="text" id='txt_message' name="message" />
+	<input type="submit" onclick="send_message();" />
+
+<div>
+ 
+</body>
+</html>
